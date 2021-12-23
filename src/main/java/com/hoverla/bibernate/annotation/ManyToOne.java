@@ -5,8 +5,8 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Column {
-    String name();
+public @interface ManyToOne {
+    String fk();
 
-    boolean primaryKey() default false;
+    FetchType fetchType() default FetchType.LAZY;
 }
