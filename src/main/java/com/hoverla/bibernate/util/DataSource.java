@@ -10,11 +10,11 @@ import java.sql.SQLException;
  * DataSource is a ConnectionPool witch use HikariCP as a connection pool vendor.
  * HikariCP comes with sane defaults that perform well in most deployments without additional tweaking.
  * Every property is optional, except for the "essentials" marked below.
- * <p>
+ * 
  * Essentials: jdbcUrl, username, password
  * Frequently used: autoCommit, connectionTimeout, idleTimeout, keepaliveTime, maxLifetime, connectionTestQuery, minimumIdle, maximumPoolSize.
- * <p>
- * For more information visit {@link <a href="https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names">documentation</a>}
+ * 
+ * For more information visit {@link https://github.com/brettwooldridge/HikariCP#popular-datasource-class-names}
  */
 public class DataSource {
     private static final String CONFIG_FILE = "src/main/resources/datasource.properties";
