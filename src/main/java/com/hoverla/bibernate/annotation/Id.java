@@ -2,9 +2,8 @@ package com.hoverla.bibernate.annotation;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 @Documented
-public @interface Column {
-    String name();
+public @interface Id {
 }
