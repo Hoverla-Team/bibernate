@@ -1,8 +1,8 @@
-package com.hoverla.bibernate.session;
+package com.hoverla.bibernate.dbOperations.impl;
 
-import com.hoverla.bibernate.exception.ConnectionException;
 import com.hoverla.bibernate.exception.PersistenceException;
-import lombok.extern.log4j.Log4j2;
+import com.hoverla.bibernate.queryBuilder.impl.SqlSaveQueryBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -10,21 +10,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Log4j2
-public class JdbcDao {
+@Slf4j
+public class Saver {
 
     private final Connection connection;
 
-    private final SqlBuilder sqlBuilder;
+    private final SqlSaveQueryBuilder sqlSaveQueryBuilder;
 
-    public JdbcDao(Connection connection) {
+    public Saver(Connection connection) {
         this.connection = connection;
-        this.sqlBuilder = new SqlBuilder();
+        this.sqlSaveQueryBuilder = new SqlSaveQueryBuilder();
     }
 
     public <T> T save(T objToSave) {
         try (connection) {
-            String insertQuery = sqlBuilder.buildSaveQuery(objToSave);
+            String insertQuery = sqlSaveQueryBuilder.buildSaveQuery(objToSave);
             try (var statement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 setObjectParameterValuesIntoStatement(objToSave, statement);
                 log.info("Bibernate: {}", insertQuery);

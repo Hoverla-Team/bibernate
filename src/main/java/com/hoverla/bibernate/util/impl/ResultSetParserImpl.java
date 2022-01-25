@@ -67,7 +67,7 @@ public class ResultSetParserImpl implements ResultSetParser {
         setValueToField(entityClass, entity, entityField, columnName, value);
     }
 
-    private String getEntityColumnName(Field entityField) {
+    public String getEntityColumnName(Field entityField) {
         var columnAnnotation= entityField.getDeclaredAnnotation(Column.class);
         return Optional.ofNullable(columnAnnotation)
                 .map(Column::name)

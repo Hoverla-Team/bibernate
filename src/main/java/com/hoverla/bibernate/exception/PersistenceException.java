@@ -1,8 +1,8 @@
 package com.hoverla.bibernate.exception;
 
-public class PersistenceException  extends RuntimeException{
+public class PersistenceException  extends BibernateApplicationException{
 
-    public PersistenceException(String message, Throwable cause) {
+    public PersistenceException(String message, Exception cause) {
         super(message, cause);
     }
 

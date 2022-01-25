@@ -1,8 +1,8 @@
 package com.hoverla.bibernate.exception;
 
-public class ConnectionException extends RuntimeException {
+public class ConnectionException extends BibernateApplicationException {
 
-    public ConnectionException(String message, Throwable cause) {
+    public ConnectionException(String message, Exception cause) {
         super(message, cause);
     }
 }

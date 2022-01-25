@@ -25,10 +25,10 @@ public class StatementHandlerImpl implements StatementHandler {
 
         Stream.iterate(0, index -> index + 1)
                 .limit(criteriaValues.size())
-                .forEach(index -> seStatementParameter(statement, criteriaValues, index));
+                .forEach(index -> setStatementParameter(statement, criteriaValues, index));
     }
 
-    private void seStatementParameter(PreparedStatement statement, List<Object> parametersValues, Integer index) {
+    private void setStatementParameter(PreparedStatement statement, List<Object> parametersValues, Integer index) {
         try {
             statement.setObject(index +1, parametersValues.get(index));
         } catch (SQLException ex) {

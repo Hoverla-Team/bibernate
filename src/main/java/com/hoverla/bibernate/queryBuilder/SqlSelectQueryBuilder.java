@@ -1,4 +1,4 @@
-package com.hoverla.bibernate.queybuilder;
+package com.hoverla.bibernate.queryBuilder;
 
 import java.util.Map;
 

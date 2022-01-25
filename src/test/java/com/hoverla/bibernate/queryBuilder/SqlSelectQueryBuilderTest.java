@@ -1,6 +1,6 @@
-package com.hoverla.bibernate.queybuilder;
+package com.hoverla.bibernate.queryBuilder;
 
-import com.hoverla.bibernate.queybuilder.impl.SqlSelectQueryBuilderImpl;
+import com.hoverla.bibernate.queryBuilder.impl.SqlSelectQueryBuilderImpl;
 import com.hoverla.bibernate.testutil.entity.User;
 import org.junit.jupiter.api.Test;
 

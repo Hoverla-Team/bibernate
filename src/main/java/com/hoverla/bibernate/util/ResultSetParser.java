@@ -1,5 +1,6 @@
 package com.hoverla.bibernate.util;
 
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface ResultSetParser {
      * @return list of {@link T} java objects
      **/
     <T> List<T> parseResultSet(Class<T> entityClass, ResultSet resultSet);
+
+    String getEntityColumnName(Field entityField);
 }

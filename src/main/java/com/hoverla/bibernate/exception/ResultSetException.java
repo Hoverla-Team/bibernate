@@ -1,8 +1,8 @@
 package com.hoverla.bibernate.exception;
 
-public class ResultSetException extends RuntimeException{
+public class ResultSetException extends BibernateApplicationException{
 
-    public ResultSetException(String message, Throwable cause) {
+    public ResultSetException(String message, Exception cause) {
         super(message, cause);
     }
 }

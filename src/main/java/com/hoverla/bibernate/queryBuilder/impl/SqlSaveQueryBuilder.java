@@ -1,7 +1,9 @@
-package com.hoverla.bibernate.session;
+package com.hoverla.bibernate.queryBuilder.impl;
 
 import com.hoverla.bibernate.annotation.Table;
-import lombok.extern.log4j.Log4j2;
+import com.hoverla.bibernate.util.ResultSetParser;
+import com.hoverla.bibernate.util.impl.ResultSetParserImpl;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -9,13 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Log4j2
-public class SqlBuilder {
+@Slf4j
+public class SqlSaveQueryBuilder {
 
     private final ResultSetParser resultSetParser;
 
-    public SqlBuilder() {
-        this.resultSetParser = new ResultSetParser();
+    public SqlSaveQueryBuilder() {
+        this.resultSetParser = new ResultSetParserImpl();
     }
 
     private static final String INSERT_INTO_TABLE = "INSERT INTO %s (%s) VALUES (%s)";
@@ -36,12 +38,7 @@ public class SqlBuilder {
         List<String> fieldNames = new ArrayList<>();
         for (int i = 1; i < declaredFields.length; i++) {
             declaredFields[i].setAccessible(true);
-            fieldNames.add(resultSetParser.getColumnName(declaredFields[i]).orElseThrow());
-
-            //todo: check if building query works
-            // todo: try to save some data
-            // todo: write tests
-            // todo: DO NOT!!!! forget to commit changes
+            fieldNames.add(resultSetParser.getEntityColumnName(declaredFields[i]));
         }
         log.debug("Getting declared fields from object: {}", String.join(", ", fieldNames));
         return fieldNames;

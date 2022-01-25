@@ -1,8 +1,7 @@
-package com.customorm.session;
+package com.hoverla.bibernate.session;
 
 import com.customorm.entity.Person;
-import com.hoverla.bibernate.session.JdbcDao;
-import com.hoverla.bibernate.session.Session;
+import com.hoverla.bibernate.dbOperations.impl.Saver;
 import com.hoverla.bibernate.util.DataSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,13 +16,13 @@ import static org.mockito.Mockito.*;
 public class SessionTest {
 
 
-    private JdbcDao jdbcDao;
+    private Saver saver;
     private DataSource dataSource;
     private Session session;
 
     @BeforeEach
     public void setup() throws SQLException {
-        jdbcDao = Mockito.mock(JdbcDao.class);
+        saver = Mockito.mock(Saver.class);
         dataSource = Mockito.mock(DataSource.class);
         session = new Session(dataSource);
     }
@@ -34,7 +33,7 @@ public class SessionTest {
     public void saveSavesEntityToDB(){
         Person newDefaultPerson = createNewDefaultPerson();
         newDefaultPerson.setId(null);
-        when(jdbcDao.save(newDefaultPerson)).thenReturn(newDefaultPerson);
+        when(saver.save(newDefaultPerson)).thenReturn(newDefaultPerson);
 
         Person savedPerson = session.save(newDefaultPerson);
 

@@ -1,9 +1,8 @@
-package com.hoverla.bibernate.finder;
+package com.hoverla.bibernate.dbOperations;
 
 import com.hoverla.bibernate.exception.NoIdFieldException;
-import com.hoverla.bibernate.finder.impl.FinderImpl;
+import com.hoverla.bibernate.dbOperations.impl.FinderImpl;
 import com.hoverla.bibernate.testutil.factory.UserFactory;
-import com.hoverla.bibernate.util.ResultSetParser;
 import com.hoverla.bibernate.testutil.entity.User;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
