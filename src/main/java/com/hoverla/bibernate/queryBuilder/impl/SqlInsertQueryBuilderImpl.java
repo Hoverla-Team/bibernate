@@ -1,6 +1,7 @@
 package com.hoverla.bibernate.queryBuilder.impl;
 
 import com.hoverla.bibernate.annotation.Table;
+import com.hoverla.bibernate.queryBuilder.SqlInsertQueryBuilder;
 import com.hoverla.bibernate.util.ResultSetParser;
 import com.hoverla.bibernate.util.impl.ResultSetParserImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -12,17 +13,18 @@ import java.util.stream.Collectors;
 
 
 @Slf4j
-public class SqlSaveQueryBuilder {
+public class SqlInsertQueryBuilderImpl implements SqlInsertQueryBuilder {
 
     private final ResultSetParser resultSetParser;
 
-    public SqlSaveQueryBuilder() {
+    public SqlInsertQueryBuilderImpl() {
         this.resultSetParser = new ResultSetParserImpl();
     }
 
     private static final String INSERT_INTO_TABLE = "INSERT INTO %s (%s) VALUES (%s)";
 
-    public String buildSaveQuery(Object objToSave) {
+    @Override
+    public String buildInsertQuery(Object objToSave) {
         String tableName = resolveTableName(objToSave.getClass());
         List<String> fieldNames = resolveFieldNames(objToSave);
         return String.format(INSERT_INTO_TABLE,

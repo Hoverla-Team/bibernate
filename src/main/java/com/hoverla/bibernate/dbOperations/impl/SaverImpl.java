@@ -1,7 +1,8 @@
 package com.hoverla.bibernate.dbOperations.impl;
 
+import com.hoverla.bibernate.dbOperations.Saver;
 import com.hoverla.bibernate.exception.PersistenceException;
-import com.hoverla.bibernate.queryBuilder.impl.SqlSaveQueryBuilder;
+import com.hoverla.bibernate.queryBuilder.impl.SqlInsertQueryBuilderImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -9,22 +10,25 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Slf4j
-public class Saver {
+public class SaverImpl implements Saver {
 
     private final Connection connection;
 
-    private final SqlSaveQueryBuilder sqlSaveQueryBuilder;
+    private final SqlInsertQueryBuilderImpl sqlInsertQueryBuilderImpl;
 
-    public Saver(Connection connection) {
+    public SaverImpl(Connection connection) {
         this.connection = connection;
-        this.sqlSaveQueryBuilder = new SqlSaveQueryBuilder();
+        this.sqlInsertQueryBuilderImpl = new SqlInsertQueryBuilderImpl();
     }
 
     public <T> T save(T objToSave) {
         try (connection) {
-            String insertQuery = sqlSaveQueryBuilder.buildSaveQuery(objToSave);
+            String insertQuery = sqlInsertQueryBuilderImpl.buildInsertQuery(objToSave);
             try (var statement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 setObjectParameterValuesIntoStatement(objToSave, statement);
                 log.info("Bibernate: {}", insertQuery);
@@ -36,6 +40,17 @@ public class Saver {
             throw new PersistenceException("Error while saving object: " + objToSave, e);
         }
         return objToSave;
+    }
+
+    public <T> List<T> saveAll(Iterable<T> entities){
+        Objects.requireNonNull(entities);
+
+        var result = new ArrayList<T>();
+
+        for (T entity : entities) {
+            result.add(save(entity));
+        }
+        return result;
     }
 
     private <T> void setObjectParameterValuesIntoStatement(T objToSave, PreparedStatement statement) throws SQLException, IllegalAccessException {
