@@ -1,7 +1,7 @@
-package com.hoverla.bibernate.queybuilder.impl;
+package com.hoverla.bibernate.queryBuilder.impl;
 
 import com.hoverla.bibernate.annotation.Entity;
-import com.hoverla.bibernate.queybuilder.SqlSelectQueryBuilder;
+import com.hoverla.bibernate.queryBuilder.SqlSelectQueryBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;

@@ -1,11 +1,11 @@
-package com.hoverla.bibernate.finder.impl;
+package com.hoverla.bibernate.dbOperations.impl;
 
 import com.hoverla.bibernate.annotation.Id;
 import com.hoverla.bibernate.exception.BibernateApplicationException;
 import com.hoverla.bibernate.exception.NoIdFieldException;
-import com.hoverla.bibernate.finder.Finder;
-import com.hoverla.bibernate.queybuilder.SqlSelectQueryBuilder;
-import com.hoverla.bibernate.queybuilder.impl.SqlSelectQueryBuilderImpl;
+import com.hoverla.bibernate.dbOperations.Finder;
+import com.hoverla.bibernate.queryBuilder.SqlSelectQueryBuilder;
+import com.hoverla.bibernate.queryBuilder.impl.SqlSelectQueryBuilderImpl;
 import com.hoverla.bibernate.util.ResultSetParser;
 import com.hoverla.bibernate.util.StatementHandler;
 import com.hoverla.bibernate.util.impl.ResultSetParserImpl;

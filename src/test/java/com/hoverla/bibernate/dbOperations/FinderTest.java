@@ -1,9 +1,8 @@
-package com.hoverla.bibernate.finder;
+package com.hoverla.bibernate.dbOperations;
 
 import com.hoverla.bibernate.exception.NoIdFieldException;
-import com.hoverla.bibernate.finder.impl.FinderImpl;
+import com.hoverla.bibernate.dbOperations.impl.FinderImpl;
 import com.hoverla.bibernate.testutil.factory.UserFactory;
-import com.hoverla.bibernate.util.ResultSetParser;
 import com.hoverla.bibernate.testutil.entity.User;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -17,7 +16,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

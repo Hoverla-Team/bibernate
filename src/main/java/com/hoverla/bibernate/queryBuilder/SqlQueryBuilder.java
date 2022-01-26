@@ -1,4 +1,4 @@
-package com.hoverla.bibernate.queybuilder;
+package com.hoverla.bibernate.queryBuilder;
 
 /**
  * {@link SqlQueryBuilder} is a marker interface that indicates that child class or interface

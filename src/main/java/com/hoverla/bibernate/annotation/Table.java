@@ -2,9 +2,10 @@ package com.hoverla.bibernate.annotation;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Target(value = ElementType.TYPE)
 @Documented
 public @interface Table {
-    String name();
+
+    String value();
 }

@@ -1,4 +1,4 @@
-package com.hoverla.bibernate.finder;
+package com.hoverla.bibernate.dbOperations;
 
 import java.util.List;
 import java.util.Map;
