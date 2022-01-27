@@ -1,7 +1,7 @@
 package com.hoverla.bibernate.queryBuilder;
 
 import com.hoverla.bibernate.queryBuilder.impl.SqlSelectQueryBuilderImpl;
-import com.hoverla.bibernate.testutil.entity.User;
+import com.hoverla.bibernate.testutil.entity.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -14,30 +14,30 @@ public class SqlSelectQueryBuilderTest {
 
     @Test
     public void buildSelectQuery() {
-        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(User.class);
+        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(Person.class);
 
-        assertThat(selectQuery).isEqualTo("SELECT * FROM users");
+        assertThat(selectQuery).isEqualTo("SELECT * FROM person");
     }
 
     @Test
     public void buildSelectQueryWithWhereClause() {
-        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(User.class, Map.of("name", "Bobo"));
+        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(Person.class, Map.of("name", "Bobo"));
 
-        assertThat(selectQuery).isEqualTo("SELECT * FROM users WHERE name = ? ");
+        assertThat(selectQuery).isEqualTo("SELECT * FROM person WHERE name = ? ");
     }
 
     @Test
     public void buildSelectQueryWithWhereClauseAndLimit() {
-        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(User.class, Map.of("name", "Bobo"), 2);
+        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(Person.class, Map.of("name", "Bobo"), 2);
 
-        assertThat(selectQuery).isEqualTo("SELECT * FROM users WHERE name = ?  LIMIT 2");
+        assertThat(selectQuery).isEqualTo("SELECT * FROM person WHERE name = ?  LIMIT 2");
     }
 
     @Test
     public void buildSelectQueryWithLimit() {
-        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(User.class, 2);
+        String selectQuery = sqlQueryBuilder.buildSqlSelectQuery(Person.class, 2);
 
-        assertThat(selectQuery).isEqualTo("SELECT * FROM users LIMIT 2");
+        assertThat(selectQuery).isEqualTo("SELECT * FROM person LIMIT 2");
     }
 
     @Test

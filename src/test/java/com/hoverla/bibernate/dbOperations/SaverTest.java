@@ -1,8 +1,8 @@
 package com.hoverla.bibernate.dbOperations;
 
 import com.hoverla.bibernate.dbOperations.impl.SaverImpl;
-import com.hoverla.bibernate.testutil.entity.User;
-import com.hoverla.bibernate.testutil.factory.UserFactory;
+import com.hoverla.bibernate.testutil.entity.Person;
+import com.hoverla.bibernate.testutil.factory.PersonFactory;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -30,25 +30,25 @@ public class SaverTest {
 
     @Test
     public void saveInsertEntityIntoDB() throws SQLException {
-        User newDefaultPerson = getMockedUser();
+        Person newDefaultPerson = getMockedUser();
         newDefaultPerson.setId(null);
 
-        User savedPerson = saver.save(newDefaultPerson);
+        Person savedPerson = saver.save(newDefaultPerson);
 
         assertThat(savedPerson).isEqualTo(newDefaultPerson);
     }
 
     @Test
     public void saveAllInsertCollectionToDB() throws SQLException {
-        List<User> users = generateUserList();
+        List<Person> people = generateUserList();
 
-        List<User> savedUsers = saver.saveAll(users);
+        List<Person> savedPeople = saver.saveAll(people);
 
-        assertThat(users).isEqualTo(savedUsers);
+        assertThat(people).isEqualTo(savedPeople);
     }
 
-    private ArrayList<User> generateUserList() throws SQLException {
-        var users = new ArrayList<User>();
+    private ArrayList<Person> generateUserList() throws SQLException {
+        var users = new ArrayList<Person>();
         users.add(getMockedUser());
         users.add(getMockedUser());
         users.add(getMockedUser());
@@ -64,8 +64,8 @@ public class SaverTest {
         return users;
     }
 
-    private User getMockedUser() throws SQLException {
-        User user = UserFactory.getTestUser();
+    private Person getMockedUser() throws SQLException {
+        Person person = PersonFactory.getTestUser();
         when(connection.prepareStatement(anyString(),anyInt())).thenReturn(statement);
         when(statement.executeUpdate()).thenReturn(1);
         when(statement.getGeneratedKeys()).thenReturn(resultSet);
@@ -73,13 +73,13 @@ public class SaverTest {
         when(resultSet.getObject(anyInt())).thenReturn(1L);
         setupMockerUserResultSet();
         setupMockerUserResultSet();
-        return user;
+        return person;
     }
 
     private void setupMockerUserResultSet() throws SQLException {
-        when(resultSet.getObject("id")).thenReturn(UserFactory.USER_ID);
-        when(resultSet.getObject("first_name")).thenReturn(UserFactory.USER_FIRST_NAME);
-        when(resultSet.getObject("last_name")).thenReturn(UserFactory.USER_LAST_NAME);
-        when(resultSet.getObject("email")).thenReturn(UserFactory.USER_EMAIL);
+        when(resultSet.getObject("id")).thenReturn(PersonFactory.USER_ID);
+        when(resultSet.getObject("first_name")).thenReturn(PersonFactory.USER_FIRST_NAME);
+        when(resultSet.getObject("last_name")).thenReturn(PersonFactory.USER_LAST_NAME);
+        when(resultSet.getObject("email")).thenReturn(PersonFactory.USER_EMAIL);
     }
 }

@@ -27,22 +27,21 @@ public class SaverImpl implements Saver {
     }
 
     public <T> T save(T objToSave) {
-        try (connection) {
-            String insertQuery = sqlInsertQueryBuilderImpl.buildInsertQuery(objToSave);
-            try (var statement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
-                setObjectParameterValuesIntoStatement(objToSave, statement);
-                log.info("Bibernate: {}", insertQuery);
-                log.info("Executing INSERT query");
-                statement.executeUpdate();
-                setIdFromDBToObject(objToSave, statement);
-            }
+
+        String insertQuery = sqlInsertQueryBuilderImpl.buildInsertQuery(objToSave);
+        try (var statement = connection.prepareStatement(insertQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            setObjectParameterValuesIntoStatement(objToSave, statement);
+            log.info("Bibernate: {}", insertQuery);
+            log.info("Executing INSERT query");
+            statement.executeUpdate();
+            setIdFromDBToObject(objToSave, statement);
         } catch (SQLException | IllegalAccessException | NoSuchFieldException e) {
             throw new PersistenceException("Error while saving object: " + objToSave, e);
         }
         return objToSave;
     }
 
-    public <T> List<T> saveAll(Iterable<T> entities){
+    public <T> List<T> saveAll(Iterable<T> entities) {
         Objects.requireNonNull(entities);
 
         var result = new ArrayList<T>();

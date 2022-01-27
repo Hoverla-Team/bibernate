@@ -2,8 +2,8 @@ package com.hoverla.bibernate.dbOperations;
 
 import com.hoverla.bibernate.exception.NoIdFieldException;
 import com.hoverla.bibernate.dbOperations.impl.FinderImpl;
-import com.hoverla.bibernate.testutil.factory.UserFactory;
-import com.hoverla.bibernate.testutil.entity.User;
+import com.hoverla.bibernate.testutil.entity.Person;
+import com.hoverla.bibernate.testutil.factory.PersonFactory;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 
@@ -30,11 +30,11 @@ public class FinderTest {
 
     @Test
     public void findById() throws SQLException {
-        User user = getMockedUser();
+        Person person = getMockedUser();
 
-        User foundUser = finder.findById(User.class, 1L).orElseThrow();
+        Person foundPerson = finder.findById(Person.class, 1L).orElseThrow();
 
-        assertThat(foundUser).isEqualTo(user);
+        assertThat(foundPerson).isEqualTo(person);
     }
 
     @Test
@@ -47,59 +47,59 @@ public class FinderTest {
 
     @Test
     public void find() throws SQLException {
-        User user = getMockedUser();
+        Person person = getMockedUser();
 
-        List<User> users = finder.find(User.class);
+        List<Person> people = finder.find(Person.class);
 
-        assertThat(users.size()).isEqualTo(2);
-        assertThat(users.get(0)).isEqualTo(user);
+        assertThat(people.size()).isEqualTo(2);
+        assertThat(people.get(0)).isEqualTo(person);
     }
 
     @Test
     public void findWithLimit() throws SQLException {
-        User user = getMockedUser();
+        Person person = getMockedUser();
 
-        List<User> users = finder.find(User.class, 2);
+        List<Person> people = finder.find(Person.class, 2);
 
-        assertThat(users.size()).isEqualTo(2);
-        assertThat(users.get(0)).isEqualTo(user);
+        assertThat(people.size()).isEqualTo(2);
+        assertThat(people.get(0)).isEqualTo(person);
     }
 
     @Test
     public void findWithCriteria() throws SQLException {
-        User user = getMockedUser();
+        Person person = getMockedUser();
 
-        List<User> users = finder.find(User.class, Map.of("id", 1L));
+        List<Person> people = finder.find(Person.class, Map.of("id", 1L));
 
-        assertThat(users.size()).isEqualTo(2);
-        assertThat(users.get(0)).isEqualTo(user);
+        assertThat(people.size()).isEqualTo(2);
+        assertThat(people.get(0)).isEqualTo(person);
     }
 
     @Test
     public void findWithCriteriaAndLimit() throws SQLException {
-        User user = getMockedUser();
+        Person person = getMockedUser();
 
-        List<User> users = finder.find(User.class, Map.of("id", 2L), 2);
+        List<Person> people = finder.find(Person.class, Map.of("id", 2L), 2);
 
-        assertThat(users.size()).isEqualTo(2);
-        assertThat(users.get(0)).isEqualTo(user);
+        assertThat(people.size()).isEqualTo(2);
+        assertThat(people.get(0)).isEqualTo(person);
     }
 
-    private User getMockedUser() throws SQLException {
-        User user = UserFactory.getTestUser();
+    private Person getMockedUser() throws SQLException {
+        Person person = PersonFactory.getTestUser();
         when(connection.prepareStatement(anyString())).thenReturn(statement);
         when(statement.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(true).thenReturn(true).thenReturn(false);
         setupMockerUserResultSet();
         setupMockerUserResultSet();
-        return user;
+        return person;
     }
 
     private void setupMockerUserResultSet() throws SQLException {
-        when(resultSet.getObject("id")).thenReturn(UserFactory.USER_ID);
-        when(resultSet.getObject("first_name")).thenReturn(UserFactory.USER_FIRST_NAME);
-        when(resultSet.getObject("last_name")).thenReturn(UserFactory.USER_LAST_NAME);
-        when(resultSet.getObject("email")).thenReturn(UserFactory.USER_EMAIL);
+        when(resultSet.getObject("id")).thenReturn(PersonFactory.USER_ID);
+        when(resultSet.getObject("first_name")).thenReturn(PersonFactory.USER_FIRST_NAME);
+        when(resultSet.getObject("last_name")).thenReturn(PersonFactory.USER_LAST_NAME);
+        when(resultSet.getObject("email")).thenReturn(PersonFactory.USER_EMAIL);
     }
 
     @AllArgsConstructor

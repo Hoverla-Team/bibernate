@@ -4,10 +4,7 @@ import com.hoverla.bibernate.annotation.Column;
 import com.hoverla.bibernate.annotation.Id;
 import com.hoverla.bibernate.annotation.Table;
 import com.hoverla.bibernate.queryBuilder.impl.SqlInsertQueryBuilderImpl;
-import com.hoverla.bibernate.testutil.entity.User;
-import com.hoverla.bibernate.testutil.factory.UserFactory;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

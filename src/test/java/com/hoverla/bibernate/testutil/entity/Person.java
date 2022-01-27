@@ -6,12 +6,14 @@ import com.hoverla.bibernate.annotation.Id;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Entity(table = "users")
+@Entity(table = "person")
 @Setter
 @Getter
 @EqualsAndHashCode
-public class User {
+@ToString
+public class Person {
 
     @Id
     private Long id;

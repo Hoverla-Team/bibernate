@@ -4,9 +4,9 @@ import com.hoverla.bibernate.annotation.Column;
 import com.hoverla.bibernate.exception.BibernateApplicationException;
 import com.hoverla.bibernate.exception.DefaultConstructorNotExistException;
 import com.hoverla.bibernate.exception.FieldSetException;
-import com.hoverla.bibernate.testutil.factory.UserFactory;
+import com.hoverla.bibernate.testutil.entity.Person;
+import com.hoverla.bibernate.testutil.factory.PersonFactory;
 import com.hoverla.bibernate.util.impl.ResultSetParserImpl;
-import com.hoverla.bibernate.testutil.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,16 +29,16 @@ public class ResultSetParserTest {
     public void parseResultSet() throws SQLException {
         ResultSet resultSet = Mockito.mock(ResultSet.class);
         when(resultSet.next()).thenReturn(true).thenReturn(false);
-        when(resultSet.getObject("id")).thenReturn(UserFactory.USER_ID);
-        when(resultSet.getObject("first_name")).thenReturn(UserFactory.USER_FIRST_NAME);
-        when(resultSet.getObject("last_name")).thenReturn(UserFactory.USER_LAST_NAME);
-        when(resultSet.getObject("email")).thenReturn(UserFactory.USER_EMAIL);
+        when(resultSet.getObject("id")).thenReturn(PersonFactory.USER_ID);
+        when(resultSet.getObject("first_name")).thenReturn(PersonFactory.USER_FIRST_NAME);
+        when(resultSet.getObject("last_name")).thenReturn(PersonFactory.USER_LAST_NAME);
+        when(resultSet.getObject("email")).thenReturn(PersonFactory.USER_EMAIL);
 
-        List<User> users = resultSetParser.parseResultSet(User.class, resultSet);
-        User user = users.get(0);
+        List<Person> people = resultSetParser.parseResultSet(Person.class, resultSet);
+        Person person = people.get(0);
 
-        assertThat(users.size()).isEqualTo(1);
-        assertThat(user).isEqualTo(UserFactory.getTestUser());
+        assertThat(people.size()).isEqualTo(1);
+        assertThat(person).isEqualTo(PersonFactory.getTestUser());
     }
 
     @Test

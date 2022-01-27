@@ -1,12 +1,12 @@
 package com.hoverla.bibernate.session;
 
 import com.hoverla.bibernate.dbOperations.Finder;
-import com.hoverla.bibernate.dbOperations.impl.SaverImpl;
+import com.hoverla.bibernate.dbOperations.Saver;
 import com.hoverla.bibernate.dbOperations.impl.FinderImpl;
+import com.hoverla.bibernate.dbOperations.impl.SaverImpl;
 import com.hoverla.bibernate.util.DataSource;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,20 +17,20 @@ import java.util.Optional;
  * the user is trying to load an entity.
  */
 public class Session {
-    private final SaverImpl saverImpl;
+    private final Saver saver;
     private final Finder finder;
 
     public Session(DataSource dataSource) throws SQLException {
-        this.saverImpl = new SaverImpl(dataSource.getConnection());
+        this.saver = new SaverImpl(dataSource.getConnection());
         this.finder = new FinderImpl(dataSource.getConnection());
     }
 
     public <T> T save(T objToSave) {
-        return saverImpl.save(objToSave);
+        return saver.save(objToSave);
     }
 
     public <T> List<T> saveAll(Iterable<T> entities){
-        return saverImpl.saveAll(entities);
+        return saver.saveAll(entities);
     }
 
     public <T> Optional<T> findById(Class<T> entityClass, Object id) {
